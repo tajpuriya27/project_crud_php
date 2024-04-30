@@ -22,5 +22,29 @@ if ($conn->connect_error) {
 echo "Connected successfully";
 
     ?>
+
+<table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Message</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>John Doe</td>
+                    <td>johndoe@example.com</td>
+                    <td>123-456-7890</td>
+                    <td>123 Main St, City</td>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </tbody>
+        </table>
 </body>
 </html>
