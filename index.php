@@ -17,19 +17,19 @@
     <form action="form_process.php" method="post">
         <div>
             <label for="name">Name:</label>
-            <input type="text" name="name" id="name">
+            <input type="text" name="name" id="name" required>
         </div>
         <div>
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+            <input type="email" name="email" id="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
         </div>
         <div>
             <label for="phone">Phone:</label>
-            <input type="text" name="phone" id="phone">
+            <input type="text" name="phone" id="phone" pattern="[0-9]{10}" required>
         </div>
         <div>
             <label for="address">Address:</label>
-            <input type="text" name="address" id="address">
+            <input type="text" name="address" id="address" required>
         </div>
         <div>
             <label for="message">Message:</label>
@@ -51,7 +51,6 @@
             </tr>
         </thead>
         <tbody>
-            <!-- inquiry in database and show the details -->
             <?php
             $sql = "SELECT * FROM users";
             $result = $conn->query($sql);
