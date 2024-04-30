@@ -15,31 +15,31 @@
 
     <h2>Form</h2>
     <form action="form_process.php" method="post">
-        <div class="form-group">
+        <div>
             <label for="name">Name:</label>
-            <input type="text" name="name" id="name" class="form-control">
+            <input type="text" name="name" id="name">
         </div>
-        <div class="form-group">
+        <div>
             <label for="email">Email:</label>
-            <input type="email" name="email" id="email" class="form-control">
+            <input type="email" name="email" id="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
         </div>
-        <div class="form-group">
+        <div>
             <label for="phone">Phone:</label>
-            <input type="text" name="phone" id="phone" class="form-control">
+            <input type="text" name="phone" id="phone">
         </div>
-        <div class="form-group">
+        <div>
             <label for="address">Address:</label>
-            <input type="text" name="address" id="address" class="form-control">
+            <input type="text" name="address" id="address">
         </div>
-        <div class="form-group">
+        <div>
             <label for="message">Message:</label>
-            <textarea name="message" id="message" class="form-control"></textarea>
+            <textarea name="message" id="message"></textarea>
         </div>
-        <input style="margin-top: 10px;" type="submit" value="Submit" class="btn btn-primary">
+        <input style="margin-top: 10px;" type="submit" value="Submit">
     </form>
 
     <h2>Records</h2>
-    <table class="table table-bordered">
+    <table>
         <thead>
             <tr>
                 <th>ID</th>
