@@ -51,14 +51,26 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>John Doe</td>
-                <td>johndoe@example.com</td>
-                <td>123-456-7890</td>
-                <td>123 Main St, City</td>
-                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-            </tr>
+            <!-- inquiry in database and show the details -->
+            <?php
+            $sql = "SELECT * FROM users";
+            $result = $conn->query($sql);
+            // var_dump($result);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row["id"] . "</td>";
+                    echo "<td>" . $row["name"] . "</td>";
+                    echo "<td>" . $row["email"] . "</td>";
+                    echo "<td>" . $row["phone"] . "</td>";
+                    echo "<td>" . $row["address"] . "</td>";
+                    echo "<td>" . $row["message"] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='6'>No records found</td></tr>";
+            }
+            ?>
         </tbody>
     </table>
 </body>
