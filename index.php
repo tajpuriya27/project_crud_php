@@ -55,6 +55,7 @@
             <?php
             $records_per_page = 3;
             $page = 0;
+            $data_row;
 
             if (isset($_GET['page']) && is_numeric($_GET['page'])) {
                 $page = ($_GET['page'] - 1) * $records_per_page;
@@ -62,6 +63,8 @@
 
             $sql = "SELECT * FROM users LIMIT $records_per_page OFFSET $page";
             $result = $conn->query($sql);
+            $data_row = $result->num_rows;
+
             // var_dump($result);
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
@@ -80,6 +83,8 @@
             ?>
         </tbody>
     </table>
+    <button onclick="loadPrevious()">previous</button>
+    <button onclick="loadNext()">next</button>
     <script>
         document.querySelector("form").addEventListener("submit", handleSubmit);
 
@@ -123,6 +128,28 @@
             document.getElementById("message").value = "";
 
 
+        }
+
+        function loadNext() {
+            var url = new URL(window.location.href);
+            var page = url.searchParams.get("page");
+            if (page == null) {
+                page = 1;
+            } else {
+                page = parseInt(page) + 1;
+            }
+            window.location.href = window.location.href.split("?")[0] + "?page=" + page;
+        }
+
+        function loadPrevious() {
+            var url = new URL(window.location.href);
+            var page = url.searchParams.get("page");
+            if (page == null) {
+                page = 1;
+            } else {
+                page = parseInt(page) - 1;
+            }
+            window.location.href = window.location.href.split("?")[0] + "?page=" + page;
         }
     </script>
 </body>
