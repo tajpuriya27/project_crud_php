@@ -28,10 +28,16 @@ $stmt->bind_param("sssss", $name, $email, $phone, $address, $message);
 
 $stmt->execute();
 $last_id = $conn->insert_id;
-
 $stmt->close();
+
+$stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
+$stmt->bind_param("i", $last_id);
+$stmt->execute();
+
+$result = $stmt->get_result();
+$latest_data = $result->fetch_assoc();
+
 $conn->close();
 
-
-echo json_encode(array("id" => $last_id, "name" => $name, "email" => $email, "phone" => $phone, "address" => $address, "message" => $message));
+echo json_encode($latest_data);
 exit();
