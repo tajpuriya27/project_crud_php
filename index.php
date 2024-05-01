@@ -58,7 +58,7 @@
             $data_row;
 
             if (isset($_GET['page']) && is_numeric($_GET['page'])) {
-                $page = ($_GET['page'] - 1) * $records_per_page;
+                $page = ($_GET['page']) * $records_per_page;
             }
 
             $sql = "SELECT * FROM users LIMIT $records_per_page OFFSET $page";
@@ -86,6 +86,11 @@
     <button onclick="loadPrevious()">previous</button>
     <button onclick="loadNext()">next</button>
     <script>
+        var rows = <?php echo $data_row; ?>;
+
+        console.log(rows);
+
+
         document.querySelector("form").addEventListener("submit", handleSubmit);
 
         function handleSubmit(e) {
@@ -104,6 +109,7 @@
 
             xhttp.onreadystatechange = function() {
                 if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    console.log(typeof xhttp.response);
                     document.getElementsByTagName("tbody")[0].innerHTML += "<tr><td>" + JSON.parse(xhttp.responseText).id + "</td><td>" + JSON.parse(xhttp.responseText).name + "</td><td>" + JSON.parse(xhttp.responseText).email + "</td><td>" + JSON.parse(xhttp.responseText).phone + "</td><td>" + JSON.parse(xhttp.responseText).address + "</td><td>" + JSON.parse(xhttp.responseText).message + "</td></tr>";
                 }
             };
@@ -139,6 +145,7 @@
                 page = parseInt(page) + 1;
             }
             window.location.href = window.location.href.split("?")[0] + "?page=" + page;
+
         }
 
         function loadPrevious() {

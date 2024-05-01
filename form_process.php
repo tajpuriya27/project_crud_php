@@ -3,6 +3,8 @@
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 
+header('Content-Type: application/json');
+
 include 'db_conn.php';
 
 function sanitizeInput($data)
@@ -26,18 +28,9 @@ $stmt = $conn->prepare("INSERT INTO users (name, email, phone, address, message)
 $stmt->bind_param("sssss", $name, $email, $phone, $address, $message);
 
 
-$stmt->execute();
-$last_id = $conn->insert_id;
-$stmt->close();
+$test = $stmt->execute();
+$last_item = $conn->query("SELECT * FROM users ORDER BY id DESC LIMIT 1");
 
-$stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
-$stmt->bind_param("i", $last_id);
-$stmt->execute();
+echo json_encode($last_item->fetch_assoc());
 
-$result = $stmt->get_result();
-$latest_data = $result->fetch_assoc();
-
-$conn->close();
-
-echo json_encode($latest_data);
-exit();
+exit;
