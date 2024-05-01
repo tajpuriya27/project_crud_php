@@ -53,7 +53,14 @@
         </thead>
         <tbody>
             <?php
-            $sql = "SELECT * FROM users";
+            $records_per_page = 3;
+            $page = 0;
+
+            if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+                $page = ($_GET['page'] - 1) * $records_per_page;
+            }
+
+            $sql = "SELECT * FROM users LIMIT $records_per_page OFFSET $page";
             $result = $conn->query($sql);
             // var_dump($result);
             if ($result->num_rows > 0) {
