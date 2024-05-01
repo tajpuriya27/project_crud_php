@@ -27,10 +27,11 @@ $stmt->bind_param("sssss", $name, $email, $phone, $address, $message);
 
 
 $stmt->execute();
+$last_id = $conn->insert_id;
 
 $stmt->close();
 $conn->close();
 
 
-header("Location: index.php");
+echo json_encode(array("id" => $last_id, "name" => $name, "email" => $email, "phone" => $phone, "address" => $address, "message" => $message));
 exit();

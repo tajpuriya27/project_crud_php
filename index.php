@@ -14,7 +14,8 @@
                                         ?></i></span></h6>
 
     <h2>Form</h2>
-    <form action="form_process.php" method="post">
+    <!-- <form action="form_process.php" method="POST"> -->
+    <form>
         <div>
             <label for="name">Name:</label>
             <input type="text" name="name" id="name" required>
@@ -35,7 +36,7 @@
             <label for="message">Message:</label>
             <textarea name="message" id="message"></textarea>
         </div>
-        <input style="margin-top: 10px;" type="submit" value="Submit">
+        <input style="margin-top: 10px;" type="submit" value="Submit" />
     </form>
 
     <h2>Records</h2>
@@ -72,6 +73,51 @@
             ?>
         </tbody>
     </table>
+    <script>
+        document.querySelector("form").addEventListener("submit", handleSubmit);
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            var name = document.getElementById("name").value;
+            var email = document.getElementById("email").value;
+            var phone = document.getElementById("phone").value;
+            var address = document.getElementById("address").value;
+            var message = document.getElementById("message").value;
+
+            if (name == "" || email == "" || phone == "" || address == "" || message == "") {
+                alert("All fields are required");
+                return false;
+            }
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function() {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
+                    document.getElementsByTagName("tbody")[0].innerHTML += "<tr><td>" + JSON.parse(xhttp.responseText).id + "</td><td>" + JSON.parse(xhttp.responseText).name + "</td><td>" + JSON.parse(xhttp.responseText).email + "</td><td>" + JSON.parse(xhttp.responseText).phone + "</td><td>" + JSON.parse(xhttp.responseText).address + "</td><td>" + JSON.parse(xhttp.responseText).message + "</td></tr>";
+                }
+            };
+            // var data = "name=" + encodeURIComponent(name);
+            var data = "name=" + encodeURIComponent(name) +
+                "&email=" + encodeURIComponent(email) +
+                "&phone=" + encodeURIComponent(phone) +
+                "&address=" + encodeURIComponent(address) +
+                "&message=" + encodeURIComponent(message);
+            // console.log(data);
+
+
+
+            xhttp.open("POST", "form_process.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send(data);
+
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("phone").value = "";
+            document.getElementById("address").value = "";
+            document.getElementById("message").value = "";
+
+
+        }
+    </script>
 </body>
 
 </html>
